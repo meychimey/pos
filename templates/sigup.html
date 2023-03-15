@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+{% endblock%}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Tambah User Admin
+                </div>
+                <div class="card-body">
+                    {% for massage in massages %}
+                    {% if message.tags == 'success' %}
+                    <div class="alert alert-success">{{message}}</div>
+                    {% else %}
+                    <div class="alert alert-danger">{{message}}</div>
+                    {% endif %}
+                {% endfor%}
+                <form action="{% url 'sigup' %}" method="post">
+                    {% csrf_token %}
+    
+                    {{ form.as_p }}
+    
+                    <button class="btn btn-primary">Kirim</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+        
