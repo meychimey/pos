@@ -26,6 +26,10 @@ def sigup(request):
         return render(request, 'sigup.html', konteks)
 
 # @Login_required(login_url=settings.LOGIN_URL)
+def kasir(request):
+    return render(request, 'kasir.html')
+
+# @Login_required(login_url=settings.LOGIN_URL)
 def barang(request):
     return render(request, 'barang.html')
 
