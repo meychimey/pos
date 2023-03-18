@@ -1,1 +1,31 @@
-extends base.
+{%extends 'base.html'%}
+{%block content%}
+<form  method="post">
+    {%csrf_token%}
+   {{form.as_p}}
+   <button type="submit">tambah</button>
+</form>
+<table>
+    <tr>
+        <td>Nama Barang</td>
+        <td>Harga Barang</td>
+        <td>Quanity</td>
+        <td>tanggal</td>
+        <td>no transaksi</td>
+        <td>Jumlah Bayar</td>
+        <td>sub total</td>
+        <td>Kembalian</td>
+    </tr>
+    <tr {%for k in kasir%}>
+        <td>{{k.id_barang.nama_barang}}</td>
+        <td>{{k.id_barang.harga_barang}}</td>
+        <td>{{k.quintity}}</td>
+        <td>{{k.tgl}}</td>
+        <td>{{k.no_transaksi}}</td>
+        <td>{{k.bayar}}</td>
+        <td>{{k.subtotal}}</td>
+        <td>{{k.kembalian}}</td>
+    </tr {%endfor%}>
+    
+</table>
+{%endblock%}

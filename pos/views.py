@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from pos.models import *
-# from pos.forms import FromBuku
+from pos.form import FormKeranjang,FormBarang
 from django.contrib import messages
 # from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -27,15 +27,54 @@ def sigup(request):
 
 # @Login_required(login_url=settings.LOGIN_URL)
 def kasir(request):
-    return render(request, 'kasir.html')
+    kasir = Keranjang.objects.all()
+
+    if request.POST: 
+        form1 = FormKeranjang(request.POST)
+        
+        if form1.is_valid():
+            form1.save()
+            
+        
+        konteks = {
+        'form':form,
+        'kasir': kasir
+        }
+        return redirect( '/kasir',konteks)
+      
+    else:
+        form = FormKeranjang()
+        konteks = {
+            'form':form,
+            'kasir': kasir,
+           
+        }
+            
+        return render (request,'kasir.html',konteks)
+   
 
 # @Login_required(login_url=settings.LOGIN_URL)
 def barang(request):
-    return render(request, 'barang.html')
+    #nambah barang
+    barang = Barang.objects.all()
+    if request.POST:
+        form = FormBarang(request.POST)
+        if form.is_valid():
+            form.save()
+        konteks = {
+            'form':form,
+            'barang':barang
+        }
+        return redirect('/barang',konteks)
+    else:
+        form = FormBarang()
+        konteks = {
+            'form':form,
+            'barang':barang
+        }
+        return render(request, 'barang.html',konteks)
 
-# @Login_required(login_url=settings.LOGIN_URL)
-def keranjang(request):
-    return render(request, 'keranjang.html')
+
 
 # @Login_required(login_url=settings.LOGIN_URL)
 def laporan(request):
@@ -45,6 +84,3 @@ def laporan(request):
 def home(request):
     return render(request, 'home.html')
 
-
-
-# Create your views here.
