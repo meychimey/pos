@@ -113,7 +113,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # login admin
-LOGIN_REDIRECT_URL = '/keranjang'
+LOGIN_REDIRECT_URL = '/kasir'
 
 LOGIN_URL = 'login'
 

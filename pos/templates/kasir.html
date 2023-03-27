@@ -1,31 +1,82 @@
 {%extends 'base.html'%}
 {%block content%}
-<form  method="post">
-    {%csrf_token%}
-   {{form.as_p}}
-   <button type="submit">tambah</button>
-</form>
-<table>
-    <tr>
-        <td>Nama Barang</td>
-        <td>Harga Barang</td>
-        <td>Quanity</td>
-        <td>tanggal</td>
-        <td>no transaksi</td>
-        <td>Jumlah Bayar</td>
-        <td>sub total</td>
-        <td>Kembalian</td>
-    </tr>
-    <tr {%for k in kasir%}>
-        <td>{{k.id_barang.nama_barang}}</td>
-        <td>{{k.id_barang.harga_barang}}</td>
-        <td>{{k.quintity}}</td>
-        <td>{{k.tgl}}</td>
-        <td>{{k.no_transaksi}}</td>
-        <td>{{k.bayar}}</td>
-        <td>{{k.subtotal}}</td>
-        <td>{{k.kembalian}}</td>
-    </tr {%endfor%}>
-    
-</table>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-6 mt-2">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-light">
+          <h5 class="mb-0">Add New Item</h5>
+        </div>
+        <div class="card-body">
+          <form method="POST">
+            {% csrf_token %}
+          {{form.as_p}}
+            <button type="submit" class="btn btn-primary float-right">Add Item</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mt-4">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-light">
+          <h5 class="mb-0">Transaction Details</h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+              <thead class="thead-light">
+                <tr>
+                  <th>No</th>
+                  <th>Item Name</th>
+                  <th>Item Price</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for k in kasir %}
+                <tr>
+                  <td>{{ k.id }}</td>
+                  <td>{{ k.id_barang.nama_barang }}</td>
+                  <td>Rp.{{ k.id_barang.harga_barang }}</td>
+                  <td>{{ k.quintity }}</td>
+                  <td>Rp.{{ k.bayar }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <div class="card border-0">
+                <div class="card-body">
+                  <h5 class="card-title mb-4">Payment Details</h5>
+                  <ul class="list-unstyled mb-0">
+                    <li><strong>Total Payment:</strong> Rp.{{ byr }}</li>
+                    <li><strong>Subtotal:</strong> Rp.{{ subt }}</li>
+                    <li><strong>Change:</strong> Rp.{{ kembalian }}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <form method="POST" action="{% url 'selesai' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary float-right mt-3">Finish Transaction</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    	
+       
+        
+</div>
+
+
 {%endblock%}

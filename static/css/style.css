@@ -55,7 +55,17 @@ body {
 .navbar-nav li a.putih:hover{
   color: #ffffff !important;
 }
-
+.img-grid{
+  place-items: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 100%;
+  margin-left: 3rem;
+}
+.text-span{
+  color:black;
+  font-weight: 800;
+}
 /* .wrapper{
   display: flex;
 }
